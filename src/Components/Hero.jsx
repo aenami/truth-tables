@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import '../styles/heroSection.css'
 import { ContainerCharacter } from './ContainerCharacter'
 import PropositionContainer  from './propositionContainer'
+import Table from './Table'
 
 function Hero() {
     const [state, addCharacter] = useState('')
@@ -14,7 +15,7 @@ function Hero() {
 
         <ContainerCharacter add={addCharacter}/>
         <PropositionContainer input={state} clean={addCharacter}/>
-
+        <Table expression={state}/>
         
     </section>
   )
