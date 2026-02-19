@@ -1,9 +1,14 @@
 import React from 'react'
 import '../styles/heroSection.css'
 
-function Inputs({char, add}) {
-  return <button className='btn' onClick={() => add( (prev) => prev + char  )}>
-    {char}
+function Inputs({character, addChar}) {
+
+  const addCharacter = () =>{
+    addChar(prev => prev + character  )
+  }
+  
+  return <button className='btn' onClick={addCharacter}>
+    {character}
   </button>
 }
 

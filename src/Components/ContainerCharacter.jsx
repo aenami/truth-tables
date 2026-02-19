@@ -7,7 +7,7 @@ export function ContainerCharacter({add}) {
   return (
     <div className='containerInputs'>
         {characters.map((char) => (
-            <Inputs key={char} char={char} add={add}/>
+            <Inputs key={char} character={char} addChar={add}/>
         ))}
     </div>
   )
