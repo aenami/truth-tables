@@ -1,7 +1,8 @@
 export const validateFirstChar = (expression) => {
     const firstChar = expression[0]
     const lastChar = expression[expression.length-1]
-    const lastError = ["~"];
+
+    const lastError = ['∧', 'V', '→', '↔', '⊻', "~"];
     const firstError = ['∧', 'V', '→', '↔', '⊻']
 
     for (const char of firstError) {
@@ -81,8 +82,8 @@ export const validateStructure = (input) => {
                 continue
             }  
 
-            if(prevChar === '~' || prevChar === 'p' || prevChar === 'q'  || prevChar === 'r' || prevChar == ')'){
-                infoValidate.info = 'El operador de negacion no puede estar precedido por proposiciones, parentesis de cierre, u otro operador de negacion'
+            if(prevChar === 'p' || prevChar === 'q'  || prevChar === 'r' || prevChar == ')'){
+                infoValidate.info = 'El operador de negacion no puede estar precedido por proposiciones o parentesis de cierre'
                 return infoValidate
             }
 

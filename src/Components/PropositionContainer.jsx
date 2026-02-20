@@ -45,8 +45,9 @@ function PropositionContainer({ input, clean, exp, changueExp, setData}) {
 	const handleClean = () => {
 		// Limpiamos el input y la expresion indicada que se esta resolviendo
 		clean("");
+		setErrorMessage('');
 		changueExp("");
-		setData(null)
+		setData(null);
 	};
 
 	const handleSolve = () => {

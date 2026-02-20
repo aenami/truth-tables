@@ -20,6 +20,7 @@ function toPostfix(tokens) {
   // Jerarquia de precedencia de los operadores binarios
   const precedence = {
     "~": 5,
+    "⊻": 4, //_------------------------------------------
     "∧": 4,
     "V": 3,
     "→": 2,
@@ -52,7 +53,7 @@ function toPostfix(tokens) {
         // 2.2 Verificamos que el ultimo elemento de la pila sea un operador (∧,V)
         isOperator(operatorStack.at(-1)) &&
         // 2.3 Verificamos que la precedencia del ultimo operador sea mayor o igual a la del actual
-        precedence[operatorStack.at(-1)] >= precedence[token]
+        precedence[operatorStack.at(-1)] > precedence[token] //--------------------------------
       ) {
         // Agregamos a la pila de subExpresiones el operador 
         output.push(operatorStack.pop());
@@ -135,7 +136,7 @@ export const resolveExpression = (input) => {
 
   // Funcion para identificar operadores
   const isOperator = (token) => {
-    return ["~", "∧", "V", "→", "↔"].includes(token)
+    return ["~", "∧", "V", "→", "↔", "⊻"].includes(token) //---------------------
   }
 
   for (const values of combinations) {
@@ -146,7 +147,6 @@ export const resolveExpression = (input) => {
     const rowSubExpressions = {}
 
     for (const token of postfixTokens) {
-
       // ===============================
       // 1️. Si es OPERANDO (p, q, r)
       // ===============================
@@ -204,6 +204,8 @@ export const resolveExpression = (input) => {
             case "↔":
               resultValue = left.value === right.value
               break
+            case "⊻":
+              resultValue = !(left.value === right.value)
           }
 
           // Guardamos la subexpresion evaluada
