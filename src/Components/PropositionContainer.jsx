@@ -5,7 +5,10 @@ import {
 	validateStructure,
 } from "../logic/validateExpression";
 
+import { resolveExpression } from "../logic/resolveExpression";
+
 const validateExp = (inputState) => {
+	// Objeto que contendra la informacion de como termino el proceso de validacion de la expresion
 	const infoValidate = {
 		valid: false,
 		info: "",
@@ -17,8 +20,8 @@ const validateExp = (inputState) => {
 		return infoValidate;
 	}
 
-	if (!validateFirstChar(inputState[0])) {
-		infoValidate.info = "Primer caracter invalido";
+	if (!validateFirstChar(inputState)) {
+		infoValidate.info = "Primer o ultimo caracter invalido";
 		return infoValidate;
 	}
 
@@ -27,20 +30,23 @@ const validateExp = (inputState) => {
 		return infoValidate;
 	}
 
-	const estrcutureResult = validateStructure(inputState);
+	const estrcutureResult = validateStructure(inputState); // Validamos la estructura de la exp
 	if (!estrcutureResult.valid) return estrcutureResult;
 
+	// Si la expresion es correcta devolvemos verdadero
 	infoValidate.valid = true;
 	return infoValidate;
 };
 
 //------------COMPONENT-------------
-function PropositionContainer({ input, clean, exp, changueExp }) {
+function PropositionContainer({ input, clean, exp, changueExp, setData}) {
 	const [errorMessage, setErrorMessage] = useState("");
 
 	const handleClean = () => {
+		// Limpiamos el input y la expresion indicada que se esta resolviendo
 		clean("");
 		changueExp("");
+		setData(null)
 	};
 
 	const handleSolve = () => {
@@ -51,8 +57,11 @@ function PropositionContainer({ input, clean, exp, changueExp }) {
 		}
 
 		//----Manejando input valido------
-		setErrorMessage("");
-		changueExp(input);
+		const result = resolveExpression(input) // Resolvemos la expresion
+
+		setErrorMessage(""); // Evitamos mensaje de error
+		changueExp(input); // Indicamos la expresion que se esta resolviendo
+		setData(result) // Guardamos el estado de la resolucion de la expresion
 	};
 
 	return (

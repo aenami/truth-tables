@@ -1,11 +1,18 @@
-export const validateFirstChar = (firstChar) => {
-    const firstError = ["p", "q", "r", "(", "~"];
+export const validateFirstChar = (expression) => {
+    const firstChar = expression[0]
+    const lastChar = expression[expression.length-1]
+    const lastError = ["~"];
+    const firstError = ['∧', 'V', '→', '↔', '⊻']
+
     for (const char of firstError) {
-        if (firstChar === char) {
-            return true
-        }
+        if (firstChar === char) return false
     }
-    return false
+
+    for(const char of lastError){
+        if(lastChar === char) return false
+    }
+
+    return true
 }
 
 export const validateParenthesis = (input) => {
